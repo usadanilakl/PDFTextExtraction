@@ -1,11 +1,11 @@
-package com.pids;
+package co.pids;
 import java.util.Arrays;
 import java.util.List;
 
-import com.GetArray;
+import co.GetArray;
 
-public class PD_035A {
-    public static String pid = "PD-035A";
+public class PD_A {
+    public static String pid = "PD-0A";
     public static String original = "";
     public static List<String> equipment;
 

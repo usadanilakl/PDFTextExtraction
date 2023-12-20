@@ -1,8 +1,8 @@
-package com.pids;
+package co.pids;
 import java.util.Arrays;
 import java.util.List;
 
-import com.GetArray;
+import co.GetArray;
 
 public class PD_020A {
     public static String pid = "PD-020A";

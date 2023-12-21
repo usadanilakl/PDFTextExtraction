@@ -433,4 +433,12 @@ public class TextSortingMethods {
         }
         return true;
     }
+
+    public static String getOnlyLetters(String letters) {
+        String res ="";
+        for (int j = 0; j < letters.length(); j++) {
+            if(Character.isLetter(letters.charAt(j))) res+=letters.charAt(j);
+        }
+        return res;
+    }
 }

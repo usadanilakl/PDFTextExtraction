@@ -4,26 +4,27 @@ package co;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellType;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
 
 public class ExcelUtil{
-    private Sheet workSheet;
-    private Workbook workBook;
+    Sheet workSheet;
+    Workbook workBook;
     private String path;
+    FileInputStream ExcelFile;
 
     public ExcelUtil(String path, String sheetName) {
         this.path = path;
         try {
             // Open the Excel file
-            FileInputStream ExcelFile = new FileInputStream(path);
+            ExcelFile = new FileInputStream(path);
             // Access the required test data sheet
             workBook = WorkbookFactory.create(ExcelFile);
             workSheet = workBook.getSheet(sheetName);
@@ -76,21 +77,23 @@ public class ExcelUtil{
 
     }
 
-    public List<Map<String, String>> getDataList() {
+    public List<LinkedHashMap<String, String>> getDataList() {
         // get all columns
         List<String> columns = getColumnsNames();
         // this will be returned
-        List<Map<String, String>> data = new ArrayList<>();
+        List<LinkedHashMap<String, String>> data = new ArrayList<>();
 
         for (int i = 1; i < rowCount(); i++) {
             // get each row
             Row row = workSheet.getRow(i);
             // create map of the row using the column and value
             // column map key, cell value --> map bvalue
-            Map<String, String> rowMap = new HashMap<String, String>();
+            LinkedHashMap<String, String> rowMap = new LinkedHashMap<String, String>();
             for (Cell cell : row) {
                 int columnIndex = cell.getColumnIndex();
+                if(cell.getCellType() != CellType.BLANK)
                 rowMap.put(columns.get(columnIndex), cell.toString());
+                else rowMap.put(columns.get(columnIndex), "no data");
             }
 
             data.add(rowMap);
@@ -109,7 +112,7 @@ public class ExcelUtil{
     }
 
     public void setCellData(String value, int rowNum, int colNum) {
-        Cell cell;
+        Cell cell=null;
         Row row;
 
         try {
@@ -126,6 +129,8 @@ public class ExcelUtil{
             workBook.write(fileOut);
 
             fileOut.close();
+            workBook.close();
+            ExcelFile.close();
         } catch (Exception e) {
             e.printStackTrace();
         }

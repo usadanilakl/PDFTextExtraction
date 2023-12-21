@@ -7,31 +7,36 @@ import java.util.Map;
 
 public class AllValves{
     public static void main(String[] args) {
-        ExcelUtil e = new ExcelUtil("C:/Users/usada/IdeaProjects/PDFTextExtraction/LOTO.xlsx", "Sheet1");
-       List<Map<String,String>> all = e.getDataList();
+        ExcelUtil e = new ExcelUtil("LOTO.xlsx", "Sheet1");
+        List<LinkedHashMap<String,String>> all = e.getDataList();
+        List<LinkedHashMap<String,String>> newAll = new ArrayList<>();
 
-         List<Map<String,String>> newAll = new ArrayList<>();
-//        System.out.println("all.size() = " + all.size());
-//        for(Map<String,String> a : all){
-//            System.out.println(a.get("ID").contains("/"));
-//        }
 
-       for(Map<String,String> every : all){
-        if(every.get("ID")!=null &&every.get("ID").contains("/")){
+       for(LinkedHashMap<String,String> every : all){
+        if(every.get("ID").contains("/")){
             String[] id = every.get("ID").replace(" ","").split("/");
+            every.replace("ID", id[0]);
+            newAll.add(every);
             for(int i = 1; i<id.length; i++){
-                Map<String,String> splitItem = new LinkedHashMap<>(Map.copyOf(every));
-                splitItem.put("ID", id[0].substring(0,3)+id[i]);
+                LinkedHashMap<String,String> splitItem = new LinkedHashMap<>(Map.copyOf(every));
+                splitItem.replace("ID", TextSortingMethods.getOnlyLetters(id[0])+id[i]);
                 newAll.add(splitItem);
             }
+            
         }else{
                newAll.add(every);
             }
        }
         System.out.println("size: "+newAll.size());
-       for(Map<String,String> m : newAll){
+       for(LinkedHashMap<String,String> m : newAll){
+        if(m.get("ID")!=null)
+        m.put("ID",m.get("ID").replace(" ",""));
 
-        System.out.println(m.get("ID"));
+        
        }
+
+       WriteExcel.write("Sheet4",newAll);
+
+
     }
 }

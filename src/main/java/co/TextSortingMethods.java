@@ -441,4 +441,12 @@ public class TextSortingMethods {
         }
         return res;
     }
+
+    public static String getLettersAndDigits(String letters){
+        String res ="";
+        for (int j = 0; j < letters.length(); j++) {
+            if(Character.isLetter(letters.charAt(j)) || Character.isDigit(letters.charAt(j)) || letters.charAt(j)=='-') res+=letters.charAt(j);
+        }
+        return res;
+    }
 }

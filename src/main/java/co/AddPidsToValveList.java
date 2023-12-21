@@ -11,6 +11,9 @@ public class AddPidsToValveList {
         // get valves from excel:
         ExcelUtil singleValve = new ExcelUtil("LOTO.xlsx", "Sheet4");
         List<LinkedHashMap<String, String>> valves = singleValve.getDataList();
+        for(LinkedHashMap<String,String> s : valves){
+            s.replace("ID",TextSortingMethods.getLettersAndDigits(s.get("ID")));
+        }
         System.out.println(valves.size());
 
         // get valves and pids from original content

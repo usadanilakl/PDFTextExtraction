@@ -25,6 +25,41 @@ public class GetArray {
         }
         return valves;
     }
+    public static List<String> getMitsuValves(String original) {
+        int len = "**MPX11AA301".length();
+        String unit = "01-";
+        String unitt = "02-";
+        String bop = "00-";
+        List<String> valves = new ArrayList<>();
+        for (int i = 0; i < original.length() - len; i++) {
+            String sub = original.substring(i, len + i);
+
+
+            if (sub.startsWith("**")&&sub.substring(7,9).equals("AA")) {
+                valves.add(sub.trim());
+
+            }
+        }
+        return valves;
+    }
+    public static List<String> getHrsgValves(String original) {
+        int len = "/&/949/&/01 - VHLS/&/".length();
+        String unit = "01 - ";
+        String unitt = "02-";
+        String bop = "00-";
+        List<String> valves = new ArrayList<>();
+        for (int i = 0; i < original.length() - len; i++) {
+            String sub = original.substring(i, len + i);
+            String numbers = sub.substring(3,6);
+            String body = sub.substring(9, sub.lastIndexOf("/&/"));
+
+            if (sub.startsWith("**")&&sub.substring(7,9).equals("AA")) {
+                valves.add(sub.trim());
+
+            }
+        }
+        return valves;
+    }
 
     public static void getAllEquipment(String original, String pid) {
         original = threeLetterEquipment3LetterType1(original, pid);

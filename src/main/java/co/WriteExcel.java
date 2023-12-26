@@ -12,7 +12,7 @@ import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 public class WriteExcel {
-    public static String path = "LOTO.xlsx";
+    public static String path = "mismatch.xlsx";
     public static XSSFWorkbook wb;
     public static XSSFSheet sh;
     public static FileInputStream file;

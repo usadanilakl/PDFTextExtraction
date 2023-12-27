@@ -3,6 +3,7 @@ package co;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -62,5 +63,46 @@ public class WriteExcel {
 
     }
     
-    
+    public static void writeCustom(String sheet, List<LinkedHashMap<String,String>> values){
+        sh = wb.getSheet(sheet);
+        int row = 0;
+        int column = 0;
+        XSSFRow header = sh.createRow(row++);
+        List<String> headerNames = new ArrayList<>();
+        for(Map.Entry<String,String> h : values.get(0).entrySet()){
+           // System.out.println(h.getKey());
+            header.createCell(column++).setCellValue(h.getKey());
+            headerNames.add(h.getKey());
+        }
+
+        System.out.println(headerNames);
+        for(Map<String,String> r : values){
+            if(r.get("ID")!=null){
+            XSSFRow newRow = sh.createRow(row++);
+            for(Map.Entry<String,String> c : r.entrySet()){
+                column = headerNames.indexOf(c.getKey());
+                // if(column==-1) System.out.println(c.getKey());
+                // else newRow.createCell(column).setCellValue(c.getValue());
+                newRow.createCell(column).setCellValue(c.getValue());
+            }
+            }
+            
+        
+        }
+        
+        FileOutputStream fo;
+        try {
+            fo = new FileOutputStream(path);
+            wb.write(fo);
+
+            fo.close();
+            wb.close();
+            file.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        
+        
+
+    }
 }

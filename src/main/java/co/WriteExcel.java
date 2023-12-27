@@ -13,12 +13,17 @@ import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 public class WriteExcel {
-    public static String path = "mismatch.xlsx";
+    //public static String path = "mismatch.xlsx";
     public static XSSFWorkbook wb;
     public static XSSFSheet sh;
     public static FileInputStream file;
 
     static{
+
+
+    }
+
+    public static void write(String path, String sheet, List<LinkedHashMap<String,String>> values){
         try {
             file = new FileInputStream(path);
             wb = new XSSFWorkbook(file);
@@ -26,9 +31,6 @@ public class WriteExcel {
             e.printStackTrace();
         }
 
-    }
-
-    public static void write(String sheet, List<LinkedHashMap<String,String>> values){
         sh = wb.getSheet(sheet);
         int row = 2;
         for(Map<String,String> r : values){
@@ -63,14 +65,20 @@ public class WriteExcel {
 
     }
     
-    public static void writeCustom(String sheet, List<LinkedHashMap<String,String>> values){
+    public static void writeCustom(String path, String sheet, List<LinkedHashMap<String,String>> values){
+        try {
+            file = new FileInputStream(path);
+            wb = new XSSFWorkbook(file);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         sh = wb.getSheet(sheet);
         int row = 0;
         int column = 0;
         XSSFRow header = sh.createRow(row++);
         List<String> headerNames = new ArrayList<>();
         for(Map.Entry<String,String> h : values.get(0).entrySet()){
-           // System.out.println(h.getKey());
+           //System.out.println(h.getKey());
             header.createCell(column++).setCellValue(h.getKey());
             headerNames.add(h.getKey());
         }

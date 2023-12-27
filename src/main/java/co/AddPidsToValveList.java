@@ -66,7 +66,7 @@ public class AddPidsToValveList {
         }
 
         System.out.println(newValveList.size());
-        WriteExcel.write("Sheet6", newValveList);
+        WriteExcel.write("LOTO.xlsx","Sheet6", newValveList);
 
     }
 

@@ -9,7 +9,7 @@ import co.ExcelUtil;
 
 public class MergeDansWork {
     public static void main(String[] args) {
-        
+    try{
     //Get Danas File
     ExcelUtil dana = new ExcelUtil("dana.xlsx", "unique");
     List<LinkedHashMap<String, String>> allDana = dana.getDataList();
@@ -21,9 +21,14 @@ public class MergeDansWork {
     ExcelUtil.fillEmptyCells(allCurrent);
 
     //Get panels from Danas table
+    System.out.println(allDana.size());
     List<String> dPanels = new ArrayList<>();
     for(LinkedHashMap<String,String> e : allDana){
-        if(e.get("Location").contains("-PPL-")||e.get("Location").contains("-SWB-")) dPanels.add(e.get("Location").substring(0,16));
+       // if(e.get("Location")!=null)
+        if(e.get("Location").contains("-PPL-")||e.get("Location").contains("-SWB-")){
+            dPanels.add(e.get("Location").substring(0,16));
+            System.out.println(e.get("Location").substring(0,16));
+        }
     }
 
     //Get panels from current table
@@ -45,5 +50,8 @@ public class MergeDansWork {
     //Compare breakers of panels using IDs
 
     // Show mismatch
+}catch(Exception e){
+    e.printStackTrace();
+}
 }
 }

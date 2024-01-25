@@ -149,4 +149,12 @@ public class ExcelUtil{
         return workSheet.getLastRowNum()+1;
     }
 
+    public static void fillEmptyCells(List<LinkedHashMap<String,String>> data){
+        
+        for(LinkedHashMap<String,String> s : data){
+            for(String e : s.keySet())
+            s.putIfAbsent(e, "no data");
+            
+        }
+    }
 }

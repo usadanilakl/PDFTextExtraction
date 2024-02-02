@@ -14,11 +14,17 @@ public class MergeDansWork {
     ExcelUtil dana = new ExcelUtil("dana.xlsx", "unique");
     List<LinkedHashMap<String, String>> allDana = dana.getDataList();
     ExcelUtil.fillEmptyCells(allDana);
+    for(LinkedHashMap<String,String> e : allDana){
+        e.putIfAbsent("Location", "no data");
+    }
 
     //Get current file
     ExcelUtil current = new ExcelUtil("current.xlsx", "unique");
     List<LinkedHashMap<String, String>> allCurrent = current.getDataList();
     ExcelUtil.fillEmptyCells(allCurrent);
+    for(LinkedHashMap<String,String> e : allCurrent){
+        e.putIfAbsent("Location", "no data");
+    }
 
     //Get panels from Danas table
     System.out.println(allDana.size());

@@ -83,7 +83,7 @@ public class WriteExcel {
             headerNames.add(h.getKey());
         }
 
-        System.out.println(headerNames);
+        //System.out.println(headerNames);
         for(Map<String,String> r : values){
             if(r.get("ID")!=null){
             XSSFRow newRow = sh.createRow(row++);

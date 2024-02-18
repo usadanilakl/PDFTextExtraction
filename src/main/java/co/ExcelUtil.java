@@ -90,16 +90,17 @@ public class ExcelUtil{
             // column map key, cell value --> map bvalue
             LinkedHashMap<String, String> rowMap = new LinkedHashMap<String, String>();
             try{
-
+            int cellNum = 0;
             for (Cell cell : row) {
-                if(cell == null) row.createCell(cell.getColumnIndex()).setCellValue("no data");
+                if(cell == null) row.createCell(cellNum).setCellValue("no data");
                 int columnIndex = cell.getColumnIndex();
                 if(cell.getCellType() != CellType.BLANK)
                 rowMap.put(columns.get(columnIndex), cell.toString());
                 else rowMap.put(columns.get(columnIndex), "no data");
+                cellNum++;
             }
         }catch(Exception e){
-            System.out.println("cought exception");
+            e.printStackTrace();
         }
 
             data.add(rowMap);
@@ -159,7 +160,9 @@ public class ExcelUtil{
         
         for(LinkedHashMap<String,String> s : data){
             for(String e : s.keySet()){
+                //System.out.println(s);
             s.putIfAbsent(e, "no data");
+
             }
         }
     }

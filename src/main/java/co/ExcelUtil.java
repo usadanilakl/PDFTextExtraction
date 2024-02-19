@@ -89,8 +89,9 @@ public class ExcelUtil{
             // create map of the row using the column and value
             // column map key, cell value --> map bvalue
             LinkedHashMap<String, String> rowMap = new LinkedHashMap<String, String>();
-            try{
             int cellNum = 0;
+            try{
+            //int cellNum = 0;
             for (Cell cell : row) {
                 if(cell == null) row.createCell(cellNum).setCellValue("no data");
                 int columnIndex = cell.getColumnIndex();
@@ -100,6 +101,8 @@ public class ExcelUtil{
                 cellNum++;
             }
         }catch(Exception e){
+            System.out.println("row: "+i);
+            System.out.println(("column: "+cellNum));
             e.printStackTrace();
         }
 
